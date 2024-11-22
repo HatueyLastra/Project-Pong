@@ -4,43 +4,53 @@ using UnityEngine;
 
 public class PowBounce : MonoBehaviour
 {
-    public string tag = "Wall";
-    public GameObject ball;
+    //public string tag = "Wall";
     bool activateBounce = false;
     public float time = 20f;
-    private Vector3 OutOfMap = new Vector3(1000, 1000, 1000);
+    private Vector3 OutOfMap;
+    private bool turnMagenta = false;
 
-
+    private void Start()
+    {
+        BallMovement.bounce = false;
+        OutOfMap = transform.position;
+    }
     private void Update()
     {
         if(activateBounce)
         BallMovement.bounce = true;
-        else
-        BallMovement.bounce = false;
+
+        if (turnMagenta)
+        {
+            GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag("Wall");
+
+            foreach (GameObject obj in objectsWithTag)
+            {
+                Renderer objRenderer = obj.GetComponent<Renderer>();
+
+                if (objRenderer != null)
+                {
+                    objRenderer.material.color = Color.magenta;
+                }
+            }
+        }
     }
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        activateBounce = true;
-        GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag(tag);
-
-        foreach (GameObject obj in objectsWithTag)
+        if (collision.gameObject.CompareTag("Ball"))
         {
-            Renderer objRenderer = obj.GetComponent<Renderer>();
-
-            if (objRenderer != null)
-            {
-                objRenderer.material.color = Color.magenta;
-            }
+            activateBounce = true;
+            turnMagenta = true;
+            transform.position = OutOfMap;
+            Invoke("BackNormal", time);
         }
-
-        transform.position = OutOfMap;
-        Invoke("BackNormal", time);
     }
 
     public void BackNormal()
     {
         activateBounce = false;
-        GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag(tag);
+        BallMovement.bounce = false;
+        GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag("Wall");
 
         foreach (GameObject obj in objectsWithTag)
         {
@@ -51,12 +61,8 @@ public class PowBounce : MonoBehaviour
                 objRenderer.material.color = Color.white;
             }
         }
-        Invoke("Destruction", 1f);
-    }
-
-    public void Destruction()
-    {
-        Destroy(gameObject);
+        GameManagement.generatePower = true;
+        turnMagenta = false;
     }
 
 }

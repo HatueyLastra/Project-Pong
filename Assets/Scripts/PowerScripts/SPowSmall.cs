@@ -12,28 +12,37 @@ public class SPowSmall : MonoBehaviour
     private Vector3 sizeNormal = new Vector3(0.5f, 2f, 1f);
     private Vector3 ballSizeSmall = new Vector3(0.1f, 0.1f, 1f);
     private Vector3 BallSizeNormal = new Vector3(0.25f, 0.25f, 1f);
-    private Vector3 OutOfMap = new Vector3(1000, 1000, 1000);
+    private Vector3 OutOfMap;
     GameObject player;
+
+    private void Start()
+    {
+        OutOfMap = transform.position;
+    }
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        ball = collision.gameObject;
-        if (BallMovement.P1ball)
-            player = player1;
-        else if (BallMovement.P2ball)
-            player = player2;
-        if (player != null)
+        if (collision.gameObject.CompareTag("Ball"))
         {
-            player.transform.localScale = sizeSmall;
-            ball.transform.localScale = ballSizeSmall;
-            transform.position = OutOfMap;
-            Invoke("BackNormal", time);
+            ball = collision.gameObject;
+            if (BallMovement.P1ball)
+                player = player1;
+            else if (BallMovement.P2ball)
+                player = player2;
+            if (player != null)
+            {
+                player.transform.localScale = sizeSmall;
+                ball.transform.localScale = ballSizeSmall;
+                BallMovement.BallSizeChanged = true;
+                transform.position = OutOfMap;
+                Invoke("BackNormal", time);
+            }
         }
     }
 
     public void BackNormal()
     {
         player.transform.localScale = sizeNormal;
-        ball.transform.localScale = BallSizeNormal;
-        Destroy(gameObject);
+        BallMovement.BallSizeChanged = false;
+        GameManagement.generatePower = true;
     }
 }

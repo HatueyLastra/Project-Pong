@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 
 public class BallMovement : MonoBehaviour
@@ -17,10 +14,12 @@ public class BallMovement : MonoBehaviour
     SpriteRenderer ballRender;
     public float ballTime = 8f;
     private float time;
+    public static bool BallSizeChanged = false;
 
     void Start()
     {
         GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag("Ball");
+        if (!BallSizeChanged)
         transform.localScale = BallSizeNormal;
         P1ball = false;
         P2ball = false;
@@ -55,6 +54,7 @@ public class BallMovement : MonoBehaviour
     void FixedUpdate()
     {
         ballRB.MovePosition(ballRB.position + moveInput * speed * Time.fixedDeltaTime);
+        
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -90,9 +90,21 @@ public class BallMovement : MonoBehaviour
             Instantiate(prefab);
             Destroy(gameObject);
         }
+
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            time = ballTime; ;
+        }
+
+        if (collision.gameObject.CompareTag("Spring"))
+        {
+            speed = speed + bounceSpeed * 1.5f;
+            time = ballTime; ;
+        }
+
         if (bounce)
         {
-                    if (collision.gameObject.CompareTag("Wall"))
+            if (collision.gameObject.CompareTag("Wall"))
             {
                 speed = speed + bounceSpeed;
             }

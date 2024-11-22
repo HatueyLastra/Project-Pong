@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/2PlayerMode.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Player1Wins.unity
+    guid: 77dc70948503cd149a9eb64ee56a7bad
+  - enabled: 1
+    path: Assets/Scenes/Player2Wins.unity
+    guid: c137951b269be9e4e98057ce05af0395
   m_configObjects: {}

@@ -6,26 +6,31 @@ public class SPowDeath : MonoBehaviour
 {
     public GameObject player1;
     public GameObject player2;
-    GameObject player;
     private int points;
+
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (BallMovement.P1ball)
+        if (collision.gameObject.CompareTag("Ball"))
         {
-            player = player1;
-            points = GameManagement.PointsP1;
-            GameManagement.PointsP1 = points - 3;
-            Destroy(gameObject);
+            Invoke("Destruction", 15f);
+            if (BallMovement.P1ball)
+            {
+                points = GameManagement.PointsP1;
+                GameManagement.PointsP1 = points - 3;
+                GameManagement.generatePower = true;
+                Destroy(gameObject);
+            }
+            else if (BallMovement.P2ball)
+            {
+                points = GameManagement.PointsP2;
+                GameManagement.PointsP2 = points - 3;
+                GameManagement.generatePower = true;
+                Destroy(gameObject);
+            }
         }
-        else if (BallMovement.P2ball)
-        {
-            player = player2;
-            points = GameManagement.PointsP2;
-            GameManagement.PointsP2 = points - 3;
-            Destroy(gameObject);
-        }
-
-
-
+    }
+    void Destruction()
+    {
+        Destroy(gameObject);
     }
 }

@@ -173,5 +173,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 8152396391465122546}
   speed: 6
-  bounceSpeed: 0.75
-  ballTime: 1
+  bounceSpeed: 0.5
+  ballTime: 8

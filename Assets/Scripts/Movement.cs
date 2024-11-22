@@ -44,7 +44,7 @@ public class Movement : MonoBehaviour
                     transform.Rotate(Vector3.forward * (-rotationSpeed * Time.deltaTime));
                 }
 
-                if (Input.GetKey(KeyCode.E))
+                if (Input.GetKey(KeyCode.Space))
                 {
                     player.transform.rotation = Quaternion.Euler(Vector3.zero);
                 }
@@ -71,7 +71,7 @@ public class Movement : MonoBehaviour
                     transform.Rotate(Vector3.forward * (-rotationSpeed * Time.deltaTime));
                 }
 
-                if (Input.GetKey(KeyCode.RightControl))
+                if (Input.GetKey(KeyCode.Return))
                 {
                     player.transform.rotation = Quaternion.Euler(Vector3.zero);
                 }
@@ -100,7 +100,7 @@ public class Movement : MonoBehaviour
                     transform.Rotate(Vector3.forward * (-rotationSpeed * Time.deltaTime));
                 }
 
-                if (Input.GetKey(KeyCode.E))
+                if (Input.GetKey(KeyCode.Space))
                 {
                     player.transform.rotation = Quaternion.Euler(Vector3.zero);
                 }
@@ -127,7 +127,7 @@ public class Movement : MonoBehaviour
                     transform.Rotate(Vector3.forward * (-rotationSpeed * Time.deltaTime));
                 }
 
-                if (Input.GetKey(KeyCode.RightControl))
+                if (Input.GetKey(KeyCode.Return))
                 {
                     player.transform.rotation = Quaternion.Euler(Vector3.zero);
                 }
@@ -157,7 +157,7 @@ public class Movement : MonoBehaviour
                     transform.Rotate(Vector3.forward * (-rotationSpeed * Time.deltaTime));
                 }
 
-                if (Input.GetKey(KeyCode.E))
+                if (Input.GetKey(KeyCode.Space))
                 {
                     player.transform.rotation = Quaternion.Euler(Vector3.zero);
                 }
@@ -184,7 +184,7 @@ public class Movement : MonoBehaviour
                     transform.Rotate(Vector3.forward * (-rotationSpeed * Time.deltaTime));
                 }
 
-                if (Input.GetKey(KeyCode.RightControl))
+                if (Input.GetKey(KeyCode.Return))
                 {
                     player.transform.rotation = Quaternion.Euler(Vector3.zero);
                 }
