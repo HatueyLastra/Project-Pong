@@ -12,7 +12,7 @@ public class SPowDeath : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ball"))
         {
-            Invoke("Destruction", 15f);
+            Invoke("Destruction", 10f);
             if (BallMovement.P1ball)
             {
                 points = GameManagement.PointsP1;

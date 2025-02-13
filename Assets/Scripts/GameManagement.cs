@@ -8,22 +8,30 @@ public class GameManagement : MonoBehaviour
 {
     public static int PointsP1 = 0;
     public static int PointsP2 = 0;
+
     int pointCounterP1 = 0;
     int pointCounterP2 = 0;
+
     int numberOfSets;
     public int maxPoints = 10;
+
     public GameObject sets;
     private GameObject set;
     int previousSet;
+
     public GameObject powers;
     int powersGroup;
     private GameObject power;
     public GameObject spawnAnimation;
     private Vector3 spawnAnimationPosition;
+
+    // Para que no se repitan poderes
     int previousPower = -1;
     int previousPower2 = -1;
-    public float powerGeneration = 30f;
-    public int specialPower; 
+
+
+    public int specialPower;
+
     public TextMeshProUGUI PointsTxt1;
     public TextMeshProUGUI PointsTxt2;
     public static bool generatePower;
@@ -36,25 +44,30 @@ public class GameManagement : MonoBehaviour
         StartCoroutine(Special());
         generatePower = true;
 }
-
-    // Update is called once per frame
     void Update()
     {
+        // Genera un poder
         if (generatePower)
             PowerGenerator();
+
+        // Se encarga de mostrar los contadores en tiempo real
         PointsTxt1.text = PointsP1.ToString();
         PointsTxt2.text = PointsP2.ToString();
+
+        // Detecta que se haya anotado un punto
         if ((PointsP1 != pointCounterP1) || (PointsP2 != pointCounterP2))
         {
             if(set != null)
             {
-                set.SetActive(false);
+                set.SetActive(false);  // Hace desaparecer el set actual
             }
             ChangeSet();
+
             pointCounterP1 = PointsP1;
             pointCounterP2 = PointsP2;
 
         }
+        // Si se llega a un cierto número de puntos, se gana la partida
         if (PointsP1 == maxPoints)
         {
             SceneManager.LoadScene(2);
@@ -69,12 +82,14 @@ public class GameManagement : MonoBehaviour
 
     void PowerGenerator()
     {
+        // Update no genera poder por ahora
         generatePower = false;
+
         powersGroup = powers.transform.GetChild(0).childCount;
         int randomPower = Random.Range(0, powersGroup);
         while ((randomPower == previousPower) || (randomPower == previousPower2))
         randomPower = Random.Range(0, powersGroup);
-        if((PointsP1 < 5) || (PointsP2 < 5)){
+        if((PointsP1 < 5) && (PointsP2 < 5)){
             power = powers.transform.GetChild(0).transform.GetChild(randomPower).gameObject;
             StartCoroutine(Spawn(power));
         }

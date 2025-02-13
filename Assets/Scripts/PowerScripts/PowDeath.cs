@@ -7,12 +7,13 @@ public class PowDeath : MonoBehaviour
     public GameObject player1;
     public GameObject player2;
     private int points;
+    public float timeUntilDestruction = 10f;
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Ball"))
         {
-            Invoke("Destruction", 15f);
+            Invoke("Destruction", timeUntilDestruction);
             if (BallMovement.P1ball)
             {
                 points = GameManagement.PointsP1;
